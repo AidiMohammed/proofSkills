@@ -10,6 +10,11 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    public function profil()
+    {
+        return $this->hasOne('App\Profil');
+    }
+
     /**
      * The attributes that are mass assignable.
      *
