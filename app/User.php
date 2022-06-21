@@ -15,6 +15,11 @@ class User extends Authenticatable
         return $this->hasOne('App\Profil');
     }
 
+    public function posts()
+    {
+        return $this->hasMany('App\Post');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

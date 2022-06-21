@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Post;
+use App\User;
+use App\Http\Requests\PostStore;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -25,7 +28,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -34,9 +37,20 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostStore $request)
     {
-        //
+        $user = User::FindOrFail(Auth::id());
+        $post = new Post();
+
+        $post->title = $request->input('title');
+        $post->content = $request->input('content');
+        $post->active = false;
+
+        $post->user()->associate($user)->save();
+
+        $request->session()->flash('status','You has been create new post');
+
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -58,7 +72,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::FindOrFail($id);
+        return view('posts.edit',['post' => $post]);
     }
 
     /**
@@ -68,9 +83,15 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostStore $request, $id)
     {
-        //
+        $post = Post::FindOrFail($id);
+        $post->title = $request->input('title');
+        $post->content = $request->input('content');
+
+        $post->save();
+
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -81,6 +102,6 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return 'je suis la';
     }
 }

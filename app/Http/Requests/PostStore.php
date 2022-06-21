@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class StorePost extends FormRequest
+class PostStore extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,10 @@ class StorePost extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        if(Auth::check())
+            return true;
+        else
+            return false;
     }
 
     /**
@@ -24,7 +28,8 @@ class StorePost extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'bail|required|max:35|min:4',
+            'content' => 'bail|required|min:4'
         ];
     }
 }

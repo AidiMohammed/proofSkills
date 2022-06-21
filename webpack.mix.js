@@ -13,4 +13,5 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css');
+mix.js('node_modules/bootstrap/js/dist/toast.js','public/js/bootsrtapToast.js');
 mix.styles('node_modules/bootstrap/dist/css/bootstrap.min.css','public/css/theme.css');

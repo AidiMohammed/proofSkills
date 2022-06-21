@@ -11,7 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+    
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -40,7 +40,7 @@
                         </li>
                         @if (Auth::check())
                             <li class="nav-item">
-                                <a class="nav-link" href="#">New Post</a>
+                                <a class="nav-link" href="{{route('posts.create')}}">New Post</a>
                             </li>
                         @endif
                         
@@ -54,9 +54,9 @@
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        </li>
+                        <li class="nav-item">
                             @endif
                         @else
                             <li class="nav-item dropdown">
